@@ -35,6 +35,7 @@ removeOutliers = function(df,
   # Remove NA
   removeNA = length(dat[is.na(dat$answer),1])
   dat = dat[!is.na(dat$answer),]
+  df = df[!is.na(dat$answer),]
 
   # Remove persons with too low numerosity-answer correlation
   remove = NULL
@@ -61,7 +62,10 @@ removeOutliers = function(df,
       facet_wrap(workerID)
     plot(q)
   }
-  if (length(remove) > 0) dat = dat[-remove,]
+  if (length(remove) > 0) {
+    dat = dat[-remove,]
+    df = df[-remove,]
+  }
 
 
   # Remove responses with RT outside range
@@ -69,7 +73,10 @@ removeOutliers = function(df,
   for (i in 1:length(dat[,1])) {
     if (dat[i,]$rt > maxRT | dat[i,]$rt < minRT) remove = c(remove, i)
   }
-  if (length(remove) > 0) dat = dat[-remove,]
+  if (length(remove) > 0) {
+    dat = dat[-remove,]
+    df = df[-remove,]
+  }
   removeRT = length(remove)
 
   # Remove extreme responses
@@ -77,7 +84,10 @@ removeOutliers = function(df,
   for (i in 1:length(dat[,1])) {
     if (dat$answer[i] > dat$median[i] + iqrFactor*dat$iqr[i]) remove = c(remove, i)
   }
-  if (length(remove) > 0) dat = dat[-remove,]
+  if (length(remove) > 0) {
+    dat = dat[-remove,]
+    df = df[-remove,]
+  }
   removeExtreme = length(remove)
 
   # Print summary
@@ -99,5 +109,5 @@ removeOutliers = function(df,
   }
 
   # Return output
-
+  return(df)
 }
