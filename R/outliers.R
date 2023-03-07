@@ -53,13 +53,20 @@ removeOutliers = function(df,
   }
 
   # Plot extreme persons
-  if (plotOutliers == TRUE) {
+  if (plotOutliers == TRUE && (length(remove) > 0)) {
     library(ggplot2)
     plotDat = dat[remove,]
-    q = ggplot(dat = plotDat, aes(x = numerosity, y = answer)) +
-      geom_point() +
-      geom_abline(slope = 1, intercept = 0) +
-      facet_wrap(workerID)
+    if (length(remove) > 1) {
+      q = ggplot(dat = plotDat, aes(x = numerosity, y = answer)) +
+        geom_point() +
+        geom_abline(slope = 1, intercept = 0) +
+        facet_wrap(workerID)
+    } else {
+      q = ggplot(dat = plotDat, aes(x = numerosity, y = answer)) +
+        geom_point() +
+        geom_abline(slope = 1, intercept = 0)
+    }
+
     plot(q)
   }
   if (length(remove) > 0) {
