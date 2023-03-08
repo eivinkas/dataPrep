@@ -32,10 +32,12 @@ weberMeasure = function(df,
     plotDat2$method = "weber"
     plotDat = rbind(plotDat1, plotDat2)
 
-    ggplot(data = plotDat, aes(x = n, y = cv, group = method, fill = method)) +
+    q1 = ggplot(data = plotDat, aes(x = n, y = cv, group = method, fill = method)) +
       geom_smooth() +
       geom_line() +
       theme_classic()
+    
+    plot(q1)
   }
 
   return(output)
