@@ -40,7 +40,7 @@ weberMeasure = function(df,
       geom_smooth() +
       geom_line() +
       theme_classic()
-    
+
     plot(q1)
   }
 
