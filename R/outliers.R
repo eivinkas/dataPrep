@@ -9,7 +9,7 @@ removeOutliers = function(df,
                           iqrFactor = 4,
                           printSummary = TRUE,
                           plotOutliers = TRUE,
-                          positionOutliers = "top"
+                          positionOutliers = "remove"
                           ) {
 
   # Add columns for removed persons and items
