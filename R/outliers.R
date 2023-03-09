@@ -80,15 +80,15 @@ removeOutliers = function(df,
   if (length(remove) > 0) {
     # Remove rows from the dummy data frame
     dat = dat[-remove,]
-    # Remove rows from the input df and move them to the removed df
-    df_removed = rbind(df_removed, df[remove,])
+    # Add removed rows to the df that stores removed rows
+    dummy_removed = df[remove,]    # Write the type of outlier
+    dummy_removed$outlierType = "person"
+    df_removed = rbind(df_removed, dummy_removed)
     # Move workerID and reponse to new column and replace with NA
     df_removed$personOutlier = df_removed[,(names(df_removed) == workerID)]
     df_removed$itemOutlier = df_removed[,(names(df_removed) == answer)]
     df_removed[,(names(df_removed) == workerID)] = NA
     df_removed[,(names(df_removed) == answer)] = NA
-    # Write the type of outlier
-    df_removed$outlierType = "person"
     # Remove outliers from data frame
     df = df[-remove,]
   }
@@ -101,15 +101,15 @@ removeOutliers = function(df,
   if (length(remove) > 0) {
     # Remove rows from the dummy data frame
     dat = dat[-remove,]
-    # Remove rows from the input df and move them to the removed df
-    df_removed = rbind(df_removed, df[remove,])
+    # Add removed rows to the df that stores removed rows
+    dummy_removed = df[remove,]    # Write the type of outlier
+    dummy_removed$outlierType = "rt"
+    df_removed = rbind(df_removed, dummy_removed)
     # Move workerID and reponse to new column and replace with NA
     df_removed$personOutlier = df_removed[,(names(df_removed) == workerID)]
     df_removed$itemOutlier = df_removed[,(names(df_removed) == answer)]
     df_removed[,(names(df_removed) == workerID)] = NA
     df_removed[,(names(df_removed) == answer)] = NA
-    # Write the type of outlier
-    df_removed$outlierType = "rt"
     # Remove outliers from data frame
     df = df[-remove,]
   }
@@ -123,15 +123,15 @@ removeOutliers = function(df,
   if (length(remove) > 0) {
     # Remove rows from the dummy data frame
     dat = dat[-remove,]
-    # Remove rows from the input df and move them to the removed df
-    df_removed = rbind(df_removed, df[remove,])
+    # Add removed rows to the df that stores removed rows
+    dummy_removed = df[remove,]    # Write the type of outlier
+    dummy_removed$outlierType = "item extreme"
+    df_removed = rbind(df_removed, dummy_removed)
     # Move workerID and reponse to new column and replace with NA
     df_removed$personOutlier = df_removed[,(names(df_removed) == workerID)]
     df_removed$itemOutlier = df_removed[,(names(df_removed) == answer)]
     df_removed[,(names(df_removed) == workerID)] = NA
     df_removed[,(names(df_removed) == answer)] = NA
-    # Write the type of outlier
-    df_removed$outlierType = "item extreme"
     # Remove outliers from data frame
     df = df[-remove,]
   }
