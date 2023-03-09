@@ -20,9 +20,9 @@ weberMeasure = function(df,
     getSD = sd(newDat$answer)
     if (central == "median") m = median(newDat$answer)
     if (central == "mean") m = mean(newDat$answer)
-    output$perceivedN[i] = m
     output$CV[i] = getSD/dots[i]
     output$Weber[i] = getSD/m
+    output$perceivedN[i] = m
   }
 
   # Plot
