@@ -119,7 +119,6 @@ removeOutliers = function(df,
   remove = NULL
   for (i in 1:length(dat[,1])) {
     if (dat$answer[i] > dat$median[i] + iqrFactor*dat$iqr[i]) remove = c(remove, i)
-    if (dat$answer[i] < dat$median[i] - iqrFactor*dat$iqr[i]) remove = c(remove, i)
   }
   if (length(remove) > 0) {
     # Remove rows from the dummy data frame
