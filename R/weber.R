@@ -11,18 +11,18 @@ weberMeasure = function(df,
   # Setup empty output frame
   dots = sort(unique(df[,(colnames(df) == numerosity)]))
   output = data.frame(n = dots)
-  output$perceivedN = 0
   output$CV = 0
   output$Weber = 0
+  output$perceivedN = 0
 
   for (i in 1:length(dots)) {
     newDat = dat[dat$numerosity == dots[i],]
     getSD = sd(newDat$answer)
-    if (central == "median") m = median(newDat$answer)
     if (central == "mean") m = mean(newDat$answer)
+    if (central == "median") m = median(newDat$answer)
     output$CV[i] = getSD/dots[i]
     output$Weber[i] = getSD/m
-    output$perceivedN[i] = m
+    output$percevedN[i] = m
   }
 
   # Plot
