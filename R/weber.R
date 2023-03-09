@@ -22,7 +22,7 @@ weberMeasure = function(df,
     if (central == "median") m = median(newDat$answer)
     output$CV[i] = getSD/dots[i]
     output$Weber[i] = getSD/m
-    output$percevedN[i] = m
+    output$perceivedN[i] = m
   }
 
   # Plot
