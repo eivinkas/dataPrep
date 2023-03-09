@@ -144,17 +144,15 @@ removeOutliers = function(df,
   # Print summary
   if (printSummary == TRUE) {
     print(data.frame("RemovedPersons" = c(removePerson, "---", paste(round(length(removePerson)/totalPersons, 2), "%"), "---")))
-    print(data.frame("RemovedItems" = c("NA",
-                                        "RT",
+    print(data.frame("RemovedItems" = c("RT",
                                         "Extreme",
                                         "---",
                                         "Tot.",
                                         "---"),
-          percent = c(paste(round(removeNA/totalResponses, 3), "%"),
-          paste(round(removeRT/totalResponses, 3), "%"),
+          percent = c(paste(round(removeRT/totalResponses, 3), "%"),
           paste(round(removeExtreme/totalResponses, 3), "%"),
           "---",
-          paste(round(((removeNA + removeRT + removeExtreme) /totalResponses), 3), "%"),
+          paste(round(((removeRT + removeExtreme) /totalResponses), 3), "%"),
           "---"
           )))
   }
