@@ -2,7 +2,10 @@ weberMeasure = function(df,
                             numerosity = "dots",
                             answer = "answer",
                             central = "median",
-                            plot = TRUE) {
+                            plot = "both",
+                            smooth = TRUE,
+                            se = TRUE,
+                            line = TRUE) {
 
   # Setup data frame
   dat = data.frame(numerosity = df[,colnames(df) == numerosity])
@@ -26,21 +29,47 @@ weberMeasure = function(df,
   }
 
   # Plot
-  if (plot) {
+  if (plot == "both") {
     library(ggplot2)
     plotDat1 = output[,1:2]
     plotDat2 = output[,c(1,3)]
-    names(plotDat1) = c("n", "cv")
-    names(plotDat2) = c("n", "cv")
+    names(plotDat1) = c("n", "cv-weber")
+    names(plotDat2) = c("n", "cv-weber")
     plotDat1$method = "cv"
     plotDat2$method = "weber"
     plotDat = rbind(plotDat1, plotDat2)
 
-    q1 = ggplot(data = plotDat, aes(x = n, y = cv, group = method, fill = method)) +
-      geom_smooth() +
-      geom_line() +
-      theme_classic()
+    q1 = ggplot(data = plotDat, aes(x = n, y = cv-weber, group = method, fill = method)) +
+    if (smooth) q1 = q1 +  geom_smooth(se = se, method = "loess", method.args = list(family = "symmetric"))
+    if (line) q1 = q1 + geom_line()
+    q1 = q1 + theme_classic()
 
+    plot(q1)
+  }
+
+  if (plot == "cv") {
+    library(ggplot2)
+    plotDat1 = output[,1:2]
+    names(plotDat1) = c("n", "cv")
+    plotDat1$method = "cv"
+    plotDat = plotDat1
+    q1 = ggplot(data = plotDat, aes(x = n, y = cv))
+    if (smooth) q1 = q1 +  geom_smooth(se = se, method = "loess", method.args = list(family = "symmetric"))
+    if (line) q1 = q1 + geom_line()
+    q1 = q1 + theme_classic()
+    plot(q1)
+  }
+
+  if (plot == "weber") {
+    library(ggplot2)
+    plotDat2 = output[,c(1,3)]
+    names(plotDat2) = c("n", "weber")
+    plotDat2$method = "weber"
+    plotDat = plotDat2
+    q1 = ggplot(data = plotDat2, aes(x = n, y = weber))
+    if (smooth) q1 = q1 +  geom_smooth(se = se, method = "loess", method.args = list(family = "symmetric"))
+    if (line) q1 = q1 + geom_line()
+    q1 = q1 + theme_classic()
     plot(q1)
   }
 
