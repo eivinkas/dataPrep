@@ -1,5 +1,5 @@
 weberMeasure = function(df,
-                            numerosity = "dots",
+                            numerosity = "numerosity",
                             answer = "answer",
                             central = "median",
                             plot = "both",
