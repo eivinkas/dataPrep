@@ -33,16 +33,18 @@ weberMeasure = function(df,
     library(ggplot2)
     plotDat1 = output[,1:2]
     plotDat2 = output[,c(1,3)]
-    names(plotDat1) = c("n", "cv-weber")
-    names(plotDat2) = c("n", "cv-weber")
+    names(plotDat1) = c("n", "cv")
+    names(plotDat2) = c("n", "cv")
     plotDat1$method = "cv"
     plotDat2$method = "weber"
     plotDat = rbind(plotDat1, plotDat2)
 
-    q1 = ggplot(data = plotDat, aes(x = n, y = cv-weber, group = method, fill = method)) +
+    q1 = ggplot(data = plotDat, aes(x = n, y = cv, group = method, fill = method))
     if (smooth) q1 = q1 +  geom_smooth(se = se, method = "loess", method.args = list(family = "symmetric"))
     if (line) q1 = q1 + geom_line()
     q1 = q1 + theme_classic()
+    q1 = q1 + xlab("n / m") + ylab("cv / weber")
+
 
     plot(q1)
   }
@@ -63,10 +65,10 @@ weberMeasure = function(df,
   if (plot == "weber") {
     library(ggplot2)
     plotDat2 = output[,c(1,3)]
-    names(plotDat2) = c("n", "weber")
+    names(plotDat2) = c("m", "weber")
     plotDat2$method = "weber"
     plotDat = plotDat2
-    q1 = ggplot(data = plotDat2, aes(x = n, y = weber))
+    q1 = ggplot(data = plotDat2, aes(x = m, y = weber))
     if (smooth) q1 = q1 +  geom_smooth(se = se, method = "loess", method.args = list(family = "symmetric"))
     if (line) q1 = q1 + geom_line()
     q1 = q1 + theme_classic()

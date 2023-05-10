@@ -1,0 +1,2 @@
+load("/Users/eivinkas/Documents/GitHub/dataPrep/R/exampleData.rds")
+load("/Users/eivinkas/Documents/GitHub/dataPrep/R/example1.rds")
