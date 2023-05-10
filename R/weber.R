@@ -32,7 +32,7 @@ weberMeasure = function(df,
   if (plot == "both") {
     library(ggplot2)
     plotDat1 = output[,1:2]
-    plotDat2 = output[,c(1,3)]
+    plotDat2 = output[,c(4,3)]
     names(plotDat1) = c("n", "cv")
     names(plotDat2) = c("n", "cv")
     plotDat1$method = "cv"
@@ -64,7 +64,7 @@ weberMeasure = function(df,
 
   if (plot == "weber") {
     library(ggplot2)
-    plotDat2 = output[,c(1,3)]
+    plotDat2 = output[,c(4,3)]
     names(plotDat2) = c("m", "weber")
     plotDat2$method = "weber"
     plotDat = plotDat2
