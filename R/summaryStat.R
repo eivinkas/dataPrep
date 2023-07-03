@@ -1,4 +1,3 @@
-
 summaryStat <- function(df){
   ds <- df %>%
     group_by(id) %>%
@@ -14,11 +13,11 @@ summaryStat <- function(df){
       
       dcor = energy::dcor(dist(x),dist(y)),   #distance correlation
       dcor_p = energy::dcor.test(dist(x),dist(y),R=999)$p.value, # p value of significance test
-      cor = ifelse(sd(y) < 1,NA,cor(x,y,method="pearson")),        # linear correlation
+      cor = ifelse(sd(y) < 1,NA,cor(x,y,method="spearman")),        # linear correlation
       cor_p = ifelse(sd(y)<1,NA,cor.test(x,y)$p.value),
       
-      five_median_y = median(y[x<6]),
-      five_iqr_y  = IQR(y[x<6]),
+      three_median_y = median(y[x<4]),
+      three_iqr_y  = IQR(y[x<4]),
       
       low_median_y = median(y[x < 0.5 * max(x)]),
       low_iqr_y = IQR(y[x < 0.5 * max(x)]),
@@ -35,4 +34,3 @@ summaryStat <- function(df){
   
   return(ds)
 }
-
