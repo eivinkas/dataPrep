@@ -1,14 +1,14 @@
 library(cobs)
 # TODO: Can implement a way to plot directly in ggplot that is compatible with facet_wrap
 
-pf <- function(x,y,newx = x,stat="avg",lambda=0,freeZ=0) {
+pf <- function(x,y,newx = x,stat="avg",lambda=0,freeZ=0,tau=0.5) {
  # free = 0 : pf(1)  = 1  (curve fixed to (1,1)  )
  # free = 1 : pf(1) >= 1 (curve free but > 0)
 
   curve <- c()
   
   if(stat=="median"){
-    curve <- pfmedian(x,y,newx,lambda=lambda,freeZ=freeZ)
+    curve <- pfmedian(x,y,newx,lambda=lambda,freeZ=freeZ,tau=tau)
    }
   else {
     curve <- pfavg(x,y,newx,lambda=lambda,freeZ) 
@@ -17,7 +17,7 @@ pf <- function(x,y,newx = x,stat="avg",lambda=0,freeZ=0) {
   return(curve)
 }  
   
-pfmedian <- function(x,y,newx = x, lambda=0, freeZ=0) {
+pfmedian <- function(x,y,newx = x, lambda=0, freeZ=0,tau=0.5) {
   #  B-Spline (median) regression with 2 constraints: 
   #    a) ppfun(1) = 1 : pointwise=rbind(c(0,1,1))  
   #    b) monotomically increasing: constraint="increase"
@@ -35,7 +35,7 @@ pfmedian <- function(x,y,newx = x, lambda=0, freeZ=0) {
   RBS <- cobs(x , y, lambda = lambda, # smoothing
               constraint="increase", # monotonically increasing
               pointwise=rbind(c(freeZ,1,1)),# pf(1) = 1 if freeZ = 0
-              knots.add=TRUE,print.mesg = FALSE) # Run B-Spline regression with automatic selection of knots
+              print.mesg = FALSE,nknots=20,tau=tau) # Run B-Spline regression with automatic selection of knots
   result <- predict(RBS, newx)
   fitted <- result[,2] # retrieve only the fitted y values
   
@@ -43,7 +43,7 @@ pfmedian <- function(x,y,newx = x, lambda=0, freeZ=0) {
   
 }
 
-pfavg <- function(x,y,newx = x, lambda=0, freeZ=0) {
+pfavg <- function(x,y,newx = x, lambda=0, freeZ=0, tau=0.5) {
   #  B-Spline (median) regression with 2 constraints: 
   #    a) ppfun(1) = 1 : pointwise=rbind(c(0,1,1))  
   #    b) monotomically increasing: constraint="increase"
@@ -64,7 +64,7 @@ pfavg <- function(x,y,newx = x, lambda=0, freeZ=0) {
     group_by(x) %>%
     summarise(z = mean(y))
   
-  RBS <- cobs(df$x , df$z, lambda = lambda,constraint="increase",pointwise=rbind(c(freeZ,1,1)),knots.add=TRUE,print.mesg = FALSE) # Run B-Spline regression with automatic selection of knots
+  RBS <- cobs(df$x , df$z, lambda = lambda,constraint="increase",pointwise=rbind(c(freeZ,1,1)),print.mesg = FALSE,nknots=20,tau=tau) # Run B-Spline regression with automatic selection of knots
   
   result <- predict(RBS, newx)
   fitted <- result[,2] # retrieve only the fitted y values
