@@ -1,5 +1,4 @@
-library(cobs)
-source("C:/Users/Trygve/OneDrive - NTNU/Documents/2 NUMEROSITY PERCEPTION/R analysis/ManuscriptAnalysis/summaryStat.R")
+# source("C:/Users/Trygve/OneDrive - NTNU/Documents/2 NUMEROSITY PERCEPTION/R analysis/ManuscriptAnalysis/summaryStat.R")
 
 outliers <- function(df,
                            cor_threshold          = 0.3,   # Consider changing for dcor (nonlinear correlation)
@@ -8,6 +7,8 @@ outliers <- function(df,
                            outlier_threshold      = 3,     # factor of mean per numerosity (psychophysical function)
                            screen                 = FALSE) # Plot for screening purposes 
                            { 
+
+  library(cobs)
   
   # Number of data points (rows) per participant, threshold: 50% must be included
   n_pts <- df %>%
