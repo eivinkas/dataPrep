@@ -17,8 +17,8 @@ outliers <- function(df,
     summarise(median_rows = median(num_rows))
   
   # Remove data points that are labelled as "error" and responses = 0
-  print(sum(df$s==9))
-  rdf <- df[df$s != 9 & df$y > 0,]
+  print(sum(df$x==9))
+  rdf <- df[df$x != 9 & df$y > 0,]
   
     # Summary statistics
   ds <- summaryStat(rdf)
