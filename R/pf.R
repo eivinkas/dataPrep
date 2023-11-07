@@ -1,7 +1,7 @@
 library(cobs)
 # TODO: Can implement a way to plot directly in ggplot that is compatible with facet_wrap
 
-pf <- function(x,y,newx = x,stat="avg",lambda=0,freeZ=0,tau=0.5) {
+pf <- function(x,y,newx = x,stat="median",lambda=0,freeZ=0,tau=0.5) {
  library(cobs)
  # free = 0 : pf(1)  = 1  (curve fixed to (1,1)  )
  # free = 1 : pf(1) >= 1 (curve free but > 0)
