@@ -4,7 +4,7 @@ outliers <- function(df,
                            cor_threshold          = 0.3,   # Consider changing for dcor (nonlinear correlation)
                            cor_p_threshold        = 0.001, # Required significance level
                            three_median_threshold = 6,     # maximum for numerosities 1-3
-                           outlier_threshold      = 3,     # factor of mean per numerosity (psychophysical function)
+                           outlier_threshold      = 4,     # factor of mean per numerosity (psychophysical function)
                            screen                 = FALSE) # Plot for screening purposes 
                            { 
 
@@ -58,8 +58,8 @@ outliers <- function(df,
       mutate(rtinlier_quart = rt < 3*rtf75 & rt > rtf25/3 )   # index for outliers
   
   # Remove outliers
-    df_in <- df_new[df_new$inlier_quart & df_new$rtinlier_quart,] #, < outlier_threshold * df_in$pfy & df_in$y > df_in$pfy/outlier_threshold,]
-  #df_in <- df_new[df_new$inlier_rel & df_new$rtinlier_quart,] # The quartiole-based outliers are tighter but more unstable!
+  #  df_in <- df_new[df_new$inlier_quart & df_new$rtinlier_quart,] #, < outlier_threshold * df_in$pfy & df_in$y > df_in$pfy/outlier_threshold,]
+  df_in <- df_new[df_new$inlier_rel & df_new$rtinlier_quart,] # The quartiole-based outliers are tighter but more unstable!
   
   # Outliers    
   df_in_outpts <- anti_join(df,df_in, by = c("id","x","y"))  # Extract data that is not included
