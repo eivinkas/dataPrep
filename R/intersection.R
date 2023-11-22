@@ -41,7 +41,6 @@ intersection <- function(data,
   }
 
   df1 = df1[-1,]
-  print(df1)
   df1$x = as.numeric(df1$x)
   df1$p = as.numeric(df1$p)
 
