@@ -20,7 +20,7 @@ outliers <- function(df,
   print(sum(df$s==9))
   rdf <- df[df$s != 9 & df$y > 0,]
   
-    # Summary statistics
+  # Summary statistics
   ds <- summaryStat(rdf)
   ds <- na.omit(ds)
   
@@ -29,7 +29,6 @@ outliers <- function(df,
   
   # Remove excluded persons
   df_in  <- df[ df$id %in% in_id, ]   # included participants
-  
   df_out <- df[!df$id %in% in_id, ] # excluded participants
   
   # Remove 0 responses
@@ -59,7 +58,8 @@ outliers <- function(df,
   
   # Remove outliers
   #  df_in <- df_new[df_new$inlier_quart & df_new$rtinlier_quart,] #, < outlier_threshold * df_in$pfy & df_in$y > df_in$pfy/outlier_threshold,]
-  df_in <- df_new[df_new$inlier_rel & df_new$rtinlier_quart,] # The quartiole-based outliers are tighter but more unstable!
+  # df_in <- df_new[df_new$inlier_rel & df_new$rtinlier_quart,] # The quartiole-based outliers are tighter but more unstable!
+  df_in <- df_new[df_new$inlier_rel,]
   
   # Outliers    
   df_in_outpts <- anti_join(df,df_in, by = c("id","x","y"))  # Extract data that is not included
