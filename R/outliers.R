@@ -102,11 +102,11 @@ outliers <- function(df,
     
     plot2 <- ggplot(df_in, aes(x=x,y=y))+geom_abline(intercept=0,slope=1,linetype="dashed",linewidth=1)+geom_point()+
       geom_line(aes(x=x,y=pfy),color="purple",linewidth=1)+
-      #geom_line(aes(x=x,y=pfy/outlier_threshold),color="orange",linewidth=1)+
-      #geom_line(aes(x=x,y=pfy*outlier_threshold),color="orange",linewidth=1)+
+      geom_line(aes(x=x,y=pfy/outlier_threshold),color="orange",linewidth=1)+
+      geom_line(aes(x=x,y=pfy*outlier_threshold),color="orange",linewidth=1)+
       
-      geom_line(aes(x=x,y=0.5*pfy10),color="orange",linewidth=1,linetype="dashed")+
-      geom_line(aes(x=x,y=1.5*pfy90),color="orange",linewidth=1,linetype="dashed")+
+      #geom_line(aes(x=x,y=0.5*pfy10),color="orange",linewidth=1,linetype="dashed")+
+      #geom_line(aes(x=x,y=1.5*pfy90),color="orange",linewidth=1,linetype="dashed")+
       
       
       geom_point(data=df_in_outpts,aes(x=x,y=y),color="red",size=3)+
