@@ -35,7 +35,7 @@ pfmedian <- function(x,y,newx = x, lambda=0, freeZ=0,tau=0.5) {
   # from the cobs package
 
   RBS <- cobs(x , y, lambda = lambda, # smoothing
-              #constraint="increase", # monotonically increasing
+              constraint="increase", # monotonically increasing
               pointwise=rbind(c(freeZ,1,1)),# pf(1) = 1 if freeZ = 0
               print.mesg = FALSE,nknots=20,tau=tau) # Run B-Spline regression with automatic selection of knots
   result <- predict(RBS, newx)
