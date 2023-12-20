@@ -12,7 +12,8 @@ pf <- function(x,y,newx = x,stat="median",lambda=0,freeZ=0,tau=0.5) {
     curve <- pfmedian(x,y,newx,lambda=lambda,freeZ=freeZ,tau=tau)
    }
   else {
-    curve <- pfavg(x,y,newx,lambda=lambda,freeZ) 
+  #  curve <- pfavg(x,y,newx,lambda=lambda,freeZ) 
+     curve <- pfmedian(x,y,newx,lambda=lambda,freeZ) 
     
   }
   return(curve)
@@ -44,7 +45,7 @@ pfmedian <- function(x,y,newx = x, lambda=0, freeZ=0,tau=0.5) {
   
 }
 
-pfavg <- function(x,y,newx = x, lambda=0, freeZ=0, tau=0.5) {
+#pfavg <- function(x,y,newx = x, lambda=0, freeZ=0, tau=0.5) {
   #  B-Spline (median) regression with 2 constraints: 
   #    a) ppfun(1) = 1 : pointwise=rbind(c(0,1,1))  
   #    b) monotomically increasing: constraint="increase"
@@ -61,15 +62,15 @@ pfavg <- function(x,y,newx = x, lambda=0, freeZ=0, tau=0.5) {
   #
   # from the cobs package
   
-  df <- data.frame(x=x,y=y) %>%
-    group_by(x) %>%
-    summarise(z = mean(y))
+ # df <- data.frame(x=x,y=y) %>%
+  #  group_by(x) %>%
+  #  summarise(z = mean(y))
   
-  RBS <- cobs(df$x , df$z, lambda = lambda,constraint="increase",pointwise=rbind(c(freeZ,1,1)),print.mesg = FALSE,nknots=20,tau=tau) # Run B-Spline regression with automatic selection of knots
+  #RBS <- cobs(df$x , df$z, lambda = lambda,constraint="increase",pointwise=rbind(c(freeZ,1,1)),print.mesg = FALSE,nknots=20,tau=tau) # Run B-Spline regression with automatic selection of knots
   
-  result <- predict(RBS, newx)
-  fitted <- result[,2] # retrieve only the fitted y values
+  #result <- predict(RBS, newx)
+ # fitted <- result[,2] # retrieve only the fitted y values
   
-  return(fitted)
+  #return(fitted)
   
-}
+#}
